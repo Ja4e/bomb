@@ -27,6 +27,9 @@ def disable_oom_killer(pid):
         if which("tlp") is not None:
             os.system("tlp set manual")
             print("Sucessfully set to Manual TLP")
+        if which("") is not None:
+            os.system("tuned-adm profile throughput-performance")
+            print("TuneD set to performance")
     except PermissionError:
         print("Permission denied. Run the script with elevated privileges.")
     except FileNotFoundError:
@@ -34,7 +37,7 @@ def disable_oom_killer(pid):
     except ValueError as e:
         print(f"Error writing to OOM score adjustment file: {e}")
 try:
-    a = input("Disable OOM (Out-of-memory) Killer? WARNING THIS WILL CAUSE PROBLEM FOR THIS CURRENT SESSION SAVE YOUR WORK... :").lower()
+    a = input("Disable OOM (Out-of-memory) Killer? WARNING THIS WILL CAUSE PROBLEM FOR THIS CURRENT SESSION... :").lower()
     if a in ("yes", "y",'1'):
         for i in range(10):
             time.sleep(1)
@@ -49,4 +52,3 @@ except KeyboardInterrupt:
     print("killed exiting...")
 except ValueError:
     print("Invalid PID. Please enter a numeric value.")
-
