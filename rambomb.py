@@ -39,7 +39,7 @@ try:
         for i in range(10):
             time.sleep(1)
             a = 10-i
-            printf("Are you sure to proceed the process? Count Down {a}")
+            print(f"Are you sure to proceed the process? Count Down {a}")
         target_pid=os.getpid()
         disable_oom_killer(target_pid)
         run_in_threads()
