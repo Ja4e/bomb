@@ -2,6 +2,7 @@ import sys
 import concurrent.futures
 import os
 import time
+from shutil import which
 sys.setrecursionlimit(10**7)
 
 def infinite_recursion(n):
@@ -20,6 +21,12 @@ def disable_oom_killer(pid):
         with open(oom_adj_path, "w") as file:
             file.write("-1000")
         print(f"Disabled OOM killer for process {pid}.")
+        if which("powerprofilesctl") is not None:
+            os.system("powerprofilesctl set performance")
+            print("Sucessfully set performance mode")
+        if which("tlp") is not None:
+            os.system("tlp set manual")
+            print("Sucessfully set to Manual TLP")
     except PermissionError:
         print("Permission denied. Run the script with elevated privileges.")
     except FileNotFoundError:
