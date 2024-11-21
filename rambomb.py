@@ -45,6 +45,8 @@ try:
         run_in_threads()
     else:
         run_in_threads() 
+except KeyboardInterrupt:
+    print("killed exiting...")
 except ValueError:
     print("Invalid PID. Please enter a numeric value.")
 
