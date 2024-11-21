@@ -37,7 +37,7 @@ try:
     a = input("Disable OOM (Out-of-memory) Killer? WARNING THIS WILL CAUSE PROBLEM FOR THIS CURRENT SESSION SAVE YOUR WORK... :").lower()
     if a in ("yes", "y",'1'):
         for i in range(10):
-            sleep(1)
+            time.sleep(1)
             a = 10-i
             printf("Are you sure to proceed the process? Count Down {a}")
         target_pid=os.getpid()
