@@ -34,7 +34,7 @@ def disable_oom_killer(pid):
     except ValueError as e:
         print(f"Error writing to OOM score adjustment file: {e}")
 try:
-    a = input("Disable OOM (Out-of-memory) Killer? WARNING THIS WILL CAUSE PROBLEM FOR THIS CURRENT SESSION... :").lower()
+    a = input("Disable OOM (Out-of-memory) Killer? WARNING THIS WILL CAUSE PROBLEM FOR THIS CURRENT SESSION SAVE YOUR WORK... :").lower()
     if a in ("yes", "y",'1'):
         for i in range(10):
             sleep(1)
