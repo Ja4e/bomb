@@ -36,19 +36,36 @@ def disable_oom_killer(pid):
         print(f"Process {pid} does not exist.")
     except ValueError as e:
         print(f"Error writing to OOM score adjustment file: {e}")
+
+def restore_oom_killer(pid):
+    try:
+        oom_adj_path = f"/proc/{pid}/oom_score_adj"
+        with open(oom_adj_path, "w") as file:
+            file.write("0")
+        print(f"Restored OOM killer for process {pid}.")
+    except Exception as e:
+        print(f"Failed to restore OOM killer: {e}")
+
 try:
+    target_pid=os.getpid()
     a = input("Disable OOM (Out-of-memory) Killer? WARNING THIS WILL CAUSE PROBLEM FOR THIS CURRENT SESSION... :").lower()
     if a in ("yes", "y",'1'):
         for i in range(10):
             time.sleep(1)
             a = 10-i
             print(f"Are you sure to proceed the process? Count Down {a}")
-        target_pid=os.getpid()
         disable_oom_killer(target_pid)
-        run_in_threads()
+        try:
+            run_in_threads()
+        except:
+            restore_oom_kiler(target_pid)
     else:
         run_in_threads() 
 except KeyboardInterrupt:
+    print("restoring oom_killer if ")
     print("killed exiting...")
 except ValueError:
     print("Invalid PID. Please enter a numeric value.")
+finally:
+    restore_oom_killer(target_pid)
+    print("Program terminated safely.")
