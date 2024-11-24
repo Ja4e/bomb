@@ -27,7 +27,7 @@ def disable_oom_killer(pid):
         if which("tlp") is not None:
             os.system("tlp set manual")
             print("Sucessfully set to Manual TLP")
-        if which("") is not None:
+        if which("tuned-adm") is not None:
             os.system("tuned-adm profile throughput-performance")
             print("TuneD set to performance")
     except PermissionError:
